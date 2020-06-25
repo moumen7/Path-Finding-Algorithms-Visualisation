@@ -1,5 +1,6 @@
 import java.util.Vector;
 
+
 class Cell
 {
    //coordinates
@@ -41,10 +42,10 @@ class Cell
    }
    public void explore_Neighbours(Cell[][] grid, Queue<Cell> q)
    {
-     int di[] = { -1, 1, 0, 0 };
-     int dj[] = { 0, 0, 1, -1 };
+     int di[] = { -1, 1, 0, 0, -1, -1, 1, 1};
+     int dj[] = { 0, 0, 1, -1, 1, -1, -1, 1};
       
-      for(int k=0; k<4; k++)
+      for(int k=0; k<di.length; k++)
       {
           int new_i = this.i + di[k];
           int new_j = this.j + dj[k];
@@ -84,6 +85,11 @@ class Cell
    {
       this.visited = visited;
       this.col = color(255,255,0);
+   }
+   public void setWall(boolean wall)
+   {
+      this.wall = wall;
+      this.col = color(0);
    }
    
    

@@ -40,7 +40,7 @@ class Cell
       stroke(0);
       rect(this.j * h, this.i * w, h - 1, w - 1); 
    }
-   public void explore_Neighbours(Cell[][] grid, Queue<Cell> q)
+   public boolean explore_Neighbours(Cell[][] grid, Queue<Cell> q, Cell end)
    {
      int di[] = { -1, 1, 0, 0, -1, -1, 1, 1};
      int dj[] = { 0, 0, 1, -1, 1, -1, -1, 1};
@@ -65,10 +65,10 @@ class Cell
           this.neighbours.add(neighbour);
           neighbour.setVisited(true);
           neighbour.setParent(this);
-              
-              
-        
+          if(neighbour == end)
+              return true;
       }
+      return false;
    }
    
    

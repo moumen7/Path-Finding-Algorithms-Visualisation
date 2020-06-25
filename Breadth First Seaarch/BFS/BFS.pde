@@ -5,11 +5,12 @@ import java.util.HashSet;
 import java.util.Random;
 import javafx.util.Pair;
 
-int cols = 15;
-int rows = 15;
+int cols = 20;
+int rows = 20;
 int w, h;
 int start_i=0, start_j=0;
 int target_i = rows-1, target_j=cols-1;
+
 Queue<Cell> q;
 Set<Pair<Integer, Integer>> walls;
 Cell root, end;
@@ -23,6 +24,7 @@ boolean clicked = false;
 
 void setup()
 {
+  
    size(800, 800);
    background(255);
    
@@ -37,8 +39,48 @@ void setup()
    q = new LinkedList<Cell>(); 
    
 }
+int screenState = 0;
+final int menuScreen = 0;
+final int bfsScreen = 1;
 
 void draw()
+{
+    if(screenState == menuScreen)
+    {
+       drawMenu();
+    }
+    else if(screenState == bfsScreen)
+    {
+       drawBFS(); 
+    }
+  
+  
+  
+}
+void drawMenu()
+{
+   float x = 100;
+   float y = 50;
+   float w = 150;
+   float h = 80;
+   
+   background(255);
+   rect(x,y,w,h);
+   fill(255);
+   if(mousePressed)
+   {
+    if(mouseX>x && mouseX <x+w && mouseY>y && mouseY <y+h)
+    {
+     println("The mouse is pressed and over the button");
+     fill(0);
+     screenState = bfsScreen;
+    } 
+  }
+  
+}
+
+
+void drawBFS()
 {
   
   if(!clicked && mousePressed && !start_identified)
@@ -88,19 +130,25 @@ void draw()
       if(current == end)
       {
           found = true;
-          current.col = color(255, 0, 0);
-          child = current;
-          System.out.println("Found\n" + current.i + "\t" + current.j);
+          child = end;
+          println("Found\n" + end.i + "\t" + end.j);
       }
       else
       {
-          current.explore_Neighbours(grid, q);
+          if(current.explore_Neighbours(grid, q, end))
+          {
+              found = true;
+              child = end;
+              println("Found\n" + end.i + "\t" + end.j);
+          }
       }
     }
     
     if(found)
     {
         child = find_parent(child);
+         end.col = color(255, 0, 0);
+        
     } 
   }
   

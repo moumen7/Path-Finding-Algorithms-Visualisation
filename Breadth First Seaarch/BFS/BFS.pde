@@ -16,19 +16,22 @@ Set<Pair<Integer, Integer>> walls;
 Cell root, end;
 Cell grid[][];
 Cell child;
-boolean found = false;
-boolean target_identified = false;
-boolean start_identified = false;
-boolean clicked = false;
-
+boolean found;
+boolean target_identified;
+boolean start_identified;
+boolean clicked;
+boolean finished;
 
 void setup()
 {
   
    size(800, 800);
    background(255);
-   
-   
+   target_identified = false;
+   start_identified = false;
+   clicked = false;
+   finished = false;
+   found = false;
    w = width / rows;
    h = height / cols;
    grid = new Cell[rows][cols];
@@ -59,23 +62,17 @@ void draw()
 }
 void drawMenu()
 {
-   float x = 100;
-   float y = 50;
-   float w = 150;
-   float h = 80;
+   
    
    background(255);
-   rect(x,y,w,h);
-   fill(255);
-   if(mousePressed)
-   {
-    if(mouseX>x && mouseX <x+w && mouseY>y && mouseY <y+h)
-    {
-     println("The mouse is pressed and over the button");
-     fill(0);
-     screenState = bfsScreen;
-    } 
-  }
+   fill(0);
+   textSize(32);
+   text(" MAZE SOLVER USING BREADTH FIRST SEARCH \n", 50, 200);
+   textSize(22);
+   text("First Choose a Cell to be the Start Cell,\n"+
+        "Then Choose another to be the Target Cell",100, 300);
+   
+   display("START");
   
 }
 
@@ -143,16 +140,23 @@ void drawBFS()
           }
       }
     }
-    
-    if(found)
+    else if(q.isEmpty())
+    {
+       finished = true;
+    }
+    else if(found)
     {
         child = find_parent(child);
-         end.col = color(255, 0, 0);
+        end.col = color(255, 0, 0);
         
     } 
+    
   }
   
   show();
+  if(finished)
+      display("AGAIN");
+  
 }
 
 Cell find_parent(Cell temp)
@@ -164,8 +168,10 @@ Cell find_parent(Cell temp)
        current.setCol(color(0, 255, 0));
    }
    else
+   {
      current.setCol(color(0, 192, 255));
-   
+     finished = true;
+   }
    return current;
 }
 
@@ -215,6 +221,36 @@ void randomize_walls()
    }
    
 }
+void display(String msg)
+{
+       delay(100);
+       float x = 300;
+       float y = 400;
+       float w = 120;
+       float h = 80;
+       fill(255);
+       rect(300, 400,w,h);
+       fill(0);
+       textSize(26);
+       text(msg,320, 450);
+       
+       if(mousePressed)
+       {
+          if(mouseX>x && mouseX <x+w && mouseY>y && mouseY <y+h)
+          {
+             fill(0);
+             finished = false;
+             if(msg == "START")
+             {
+               setup();
+               screenState = bfsScreen;
+             }
+             else
+               screenState = menuScreen;
+          } 
+       }
+}
+  
 void mouseClicked()
 {
   if(!clicked && start_identified)

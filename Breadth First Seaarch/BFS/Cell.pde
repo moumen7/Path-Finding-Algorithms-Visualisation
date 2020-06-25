@@ -15,7 +15,7 @@ class Cell
    boolean wall = false; 
    //color
    color col;
-   //visited, 0 for not visited, 1 for visited
+   //visited or not
    boolean visited = false;
    //parent
    Cell parent;
@@ -37,7 +37,7 @@ class Cell
    {
       fill(this.col);
       stroke(0);
-      rect(this.i * w , this.j * h, w - 1, h - 1); 
+      rect(this.j * h, this.i * w, h - 1, w - 1); 
    }
    public void explore_Neighbours(Cell[][] grid, Queue<Cell> q)
    {
@@ -82,8 +82,8 @@ class Cell
    }
    public void setVisited(boolean visited)
    {
-      this.visited = true;
-      this.col = color(255,204,0);
+      this.visited = visited;
+      this.col = color(255,255,0);
    }
    
    

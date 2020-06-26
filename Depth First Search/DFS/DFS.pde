@@ -68,7 +68,7 @@ void drawMenu()
    background(255);
    fill(0);
    textSize(32);
-   text(" MAZE SOLVER USING BREADTH FIRST SEARCH \n", 50, 200);
+   text(" MAZE SOLVER USING DEPDTH FIRST SEARCH \n", 50, 200);
    textSize(22);
    text("First Choose a Cell to be the Start Cell,\n"+
         "Then Choose another to be the Target Cell",100, 300);

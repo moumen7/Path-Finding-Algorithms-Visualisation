@@ -55,7 +55,7 @@ void draw()
     }
     else if(screenState == bfsScreen)
     {
-       drawBFS(); 
+       drawDFS(); 
     }
   
   
@@ -78,7 +78,7 @@ void drawMenu()
 }
 
 
-void drawBFS()
+void drawDFS()
 {
   
   if(!clicked && mousePressed && !start_identified)

@@ -240,13 +240,8 @@ void display(String msg)
           {
              fill(0);
              finished = false;
-             if(msg == "START")
-             {
-               setup();
-               screenState = bfsScreen;
-             }
-             else
-               screenState = menuScreen;
+             setup();
+             screenState = bfsScreen;
           } 
        }
 }

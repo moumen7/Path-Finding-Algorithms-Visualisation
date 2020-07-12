@@ -42,42 +42,7 @@ void setup()
    q = new LinkedList<Cell>(); 
    
 }
-/*
-int screenState = 0;
-final int menuScreen = 0;
-final int bfsScreen = 1;
 
-
-void draw()
-{
-    if(screenState == menuScreen)
-    {
-       drawMenu();
-    }
-    else if(screenState == bfsScreen)
-    {
-       drawBFS(); 
-    }
-  
-  
-  
-}
-void drawMenu()
-{
-   
-   
-   background(255);
-   fill(0);
-   textSize(32);
-   text(" MAZE SOLVER USING BREADTH FIRST SEARCH \n", 50, 200);
-   textSize(22);
-   text("First Choose a Cell to be the Start Cell,\n"+
-        "Then Choose another to be the Target Cell",100, 300);
-   
-   display("START");
-  
-}
-*/
 
 void draw()
 {
@@ -241,32 +206,7 @@ void randomize_walls()
    }
    
 }
-/*
-void display(String msg)
-{
-       delay(100);
-       float x = 300;
-       float y = 400;
-       float w = 120;
-       float h = 80;
-       fill(255);
-       rect(300, 400,w,h);
-       fill(0);
-       textSize(26);
-       text(msg,320, 450);
-       
-       if(mousePressed)
-       {
-          if(mouseX>x && mouseX <x+w && mouseY>y && mouseY <y+h)
-          {
-             fill(0);
-             finished = false;
-             setup();
-             screenState = bfsScreen;
-          } 
-       }
-}
- */ 
+
 void mouseClicked()
 {
   if(!clicked && start_identified)

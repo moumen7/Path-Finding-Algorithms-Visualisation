@@ -25,14 +25,14 @@ boolean finished;
 void setup()
 {
   
-   size(800, 800);
+   size(800, 805);
    background(255);
    target_identified = false;
    start_identified = false;
    clicked = false;
    finished = false;
    found = false;
-   w = width / rows;
+   w = width / rows - 5;
    h = height / cols;
    grid = new Cell[rows][cols];
    randomize_walls();
@@ -42,9 +42,11 @@ void setup()
    q = new LinkedList<Cell>(); 
    
 }
+/*
 int screenState = 0;
 final int menuScreen = 0;
 final int bfsScreen = 1;
+
 
 void draw()
 {
@@ -75,30 +77,43 @@ void drawMenu()
    display("START");
   
 }
+*/
 
-
-void drawBFS()
+void draw()
 {
-  
+  if(keyPressed)
+      {
+         if(key == ' ')
+         {
+           setup();
+         }
+         if(key == '\n')
+         {
+           exit();  
+         }
+      }
   if(!clicked && mousePressed && !start_identified)
   {
      start_i = mouseY / w;
      start_j = mouseX / h;
       
-     start_identified = true;
-     root = grid[start_i][start_j];
-     
-     if(root.wall)
+     if(start_i < rows &&  start_j < cols)
      {
-        start_identified = false;
-        clicked = false;
-     }  
-     else
-     {
-       root.parent = null;
-       root.setVisited(true);
-       root.col = color(0, 255, 0);
-       q.add(root);
+       start_identified = true;
+       root = grid[start_i][start_j];
+       
+       if(start_identified && root.wall)
+       {
+          start_identified = false;
+          clicked = false;
+       }  
+       else if(start_identified)
+       {
+         root.parent = null;
+         root.setVisited(true);
+         root.col = color(0, 255, 0);
+         q.add(root);
+       }
      }
      println(start_i);
      println(start_j);  
@@ -107,15 +122,18 @@ void drawBFS()
   {
     target_i = mouseY / w;
     target_j = mouseX / h;
-    target_identified = true;
-    end = grid[target_i][target_j];
     
-    if(end.wall) 
-      target_identified = false;
-    else
-      end.col = color(255, 0, 0);
-    println(target_i);
-    println(target_j);
+    if(target_i < rows &&  target_j < cols)
+    {
+      target_identified = true;
+      end = grid[target_i][target_j];
+      
+      if(target_identified && end.wall) 
+        target_identified = false;
+      else if(target_identified)
+        end.col = color(255, 0, 0);
+    }
+    
   }
   
   if(start_identified && target_identified)
@@ -153,9 +171,11 @@ void drawBFS()
     
   }
   
+  fill(0);
+  textSize(20);
+  text("Choose the starting cell, then the end cell.\nPress SPACE to start again.\nPress ENTER to exit.", 10, 722);
   show();
-  if(finished)
-      display("AGAIN");
+  
   
 }
 
@@ -221,6 +241,7 @@ void randomize_walls()
    }
    
 }
+/*
 void display(String msg)
 {
        delay(100);
@@ -245,7 +266,7 @@ void display(String msg)
           } 
        }
 }
-  
+ */ 
 void mouseClicked()
 {
   if(!clicked && start_identified)
